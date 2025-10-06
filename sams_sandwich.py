@@ -1,4 +1,4 @@
-def bread_selection():
+def bread_selection(): # Selects the bread
     bread_list = ["White", "Brown", "Italian", "Granary"]
     count = 0
     print("We have the following breads: ")
