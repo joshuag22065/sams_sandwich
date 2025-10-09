@@ -37,3 +37,30 @@ Date of booking: 2025-10-09 10:36:24.755530
  Salad: Peppers Corn Lettuce
  Sauce: Regular Mayonnaise 
 ************END OF ORDER************ 
+
+ ************NEW ORDER RECIEVED************
+Date of booking: 2025-10-10 11:49:55.755751
+ Bread: White
+ Meat: Bacon
+ Cheese: Swiss
+ Salad: Corn Tomato
+ Sauce: Oil 
+************END OF ORDER************ 
+
+ ************NEW ORDER RECIEVED************
+Date of booking: 2025-10-10 12:05:08.817258
+ Bread: White
+ Meat: Salami
+ Cheese: Brie
+ Salad: Lettuce
+ Sauce: Oil 
+************END OF ORDER************ 
+
+ ************NEW ORDER RECIEVED************
+Date of booking: 2025-10-10 12:07:35.858985
+ Bread: Brown
+ Meat: Bacon
+ Cheese: Swiss
+ Salad: Corn Tomato
+ Sauce: Oil 
+************END OF ORDER************ 

@@ -4,7 +4,7 @@ def force_number(message, lower, upper, allow_enter=False):
     while True:
         user_input = input(message)
         if allow_enter and user_input == "":  # only allowed when specifically enabled
-            return ""
+            return
         else:
             try:
                 num = int(user_input)
@@ -38,7 +38,7 @@ def bread_selection(): # Selects the bread
     return bread_list[bread_selected-1] #Returns back a string
 
 def print_list(list, item):
-    count = 0
+    count = 0 # Print function to print out ingredient options
     print(f"We have the following {item}: ")
     while count < len(list): #prints out each item on the list
         print(count+1, " ",list[count])
@@ -82,33 +82,33 @@ def sauce_selection():
     return sauce_list[sauce_selected-1].strip() #Returns back a string
 
 def output_textfile(sandwich_order):
-    date_time = datetime.datetime.now()
-    outF=open("Sam's_sandwiches.txt", "a")
-    print(" \n***The quote for the sandwich***")
-    outF.write(f"\n ************NEW ORDER RECIEVED************")
+    date_time = datetime.datetime.now() # Setting date and time
+    outF=open("Sam's_sandwiches.txt", "a") # Opening txt file
+    print(" \n***The quote for the sandwich***") 
+    outF.write(f"\n ************NEW ORDER RECIEVED************") # Writing order in txt file
     outF.write(f"\nDate of booking: {date_time}")
-    for booking in sandwich_order:
+    for booking in sandwich_order: # Loop to print out sandwich choices
         print (booking)
         outF.write(f"\n {booking}") #outputs each item to the text file
     outF.write(f" \n************END OF ORDER************ \n")
     outF.close()
 
 #Main program
-phone_number = force_cellphone_number('Please enter in your phone number: ', 6,10)
+phone_number = force_cellphone_number('Please enter in your phone number without country code in NZ format: ', 8,12)
 first_name = force_name("Please enter in your first name: ")
 print("Welcome to Sam's Sandwich Shop")
 bread_choice=bread_selection() # Creating a variable that calls up the bread function and  returns their choice
 print(f"Your selected bread: {bread_choice}")
 meat_choice=meat_selection() # Creating a variable that calls up the meat function and  returns their choice
 print(f"Your selected meat: {meat_choice}")
-cheese_choice=cheese_selection() # Creating a variable that calls up the meat function and  returns their choice
+cheese_choice=cheese_selection() # Creating a variable that calls up the cheese function and  returns their choice
 print(f"Your selected cheese: {cheese_choice}")
-salad_choice=salad_selection() # Creating a variable that calls up the meat function and  returns their choice
+salad_choice=salad_selection() # Creating a variable that calls up the salad function and  returns their choice
 print(f"Your selected salads: {salad_choice}")
-sauce_choice=sauce_selection() # Creating a variable that calls up the meat function and  returns their choice
+sauce_choice=sauce_selection() # Creating a variable that calls up the sauce function and  returns their choice
 print(f"Your selected sauce: {sauce_choice}")
-sandwich_order=[] #Appending choices to list to be printed out
-sandwich_order.append(f"Bread: {bread_choice}") 
+sandwich_order=[] # Creating an empty list for ingredient choices
+sandwich_order.append(f"Bread: {bread_choice}") #Appending choices to list to be printed out
 sandwich_order.append(f"Meat: {meat_choice}") 
 sandwich_order.append(f"Cheese: {cheese_choice}") 
 sandwich_order.append(f"Salad: {salad_choice}") 
