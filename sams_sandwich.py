@@ -1,116 +1,121 @@
-import datetime
+# imports the date and time function 
+import datetime 
 
-def force_number(message, lower, upper, allow_enter=False):
+#This program will allow the user to enter in a name
+def force_name(message,lower,upper):
+   #This is an infinite loop that will only break if a valid name is entered
     while True:
-        user_input = input(message)
-        if allow_enter and user_input == "":  # only allowed when specifically enabled
-            return
+        name=str(input(message)).title()
+        if len(name)>=lower and len(name)<=upper and name.isalpha():
+            break #the loop bresks if the above condition is met
         else:
-            try:
-                num = int(user_input)
-                if lower <= num <= upper:
-                    return num
+            print(f"Invalid name. Your name must have no numbers or characters and be between {lower} and {upper} characters long")
+    return name #a valid name is returned back to the variable that called the function
+
+#The purpose of this function is to enter in a valid number
+def force_number(message,lower,upper,allow_enter=False):
+    while True: #infinite loop that keeps repeating until a valid number is entered
+        try:
+            # this part checks if it is the salad option which means you push enter to end
+            num=(input(message)) 
+            if num == "" and allow_enter==True:
+                return
+            # and if its not it turns it into an interger and checks it is in a valid range
+            else:
+                num=(int(num))
+            if num>=lower and num<=upper:
+                break
+            # prints different error statements based on what is allowed by that variable
+            else:
+                if allow_enter==True:
+                    print(f"Incorrect, you must select a number between {lower} and {upper} or press enter")
                 else:
-                    print(f"The number {num} is wrong, please type in a number between {lower}-{upper}")
-            except ValueError:
-                print("Error, please enter in a number")
+                    print(f"Incorrect, you must select a number between {lower} and {upper}")
+        except: #this will only print if you type in a string
+            print("Error, please enter in a number not text")
+    return num #returning back a valid number within a range
 
-def force_cellphone_number(message, lower, upper):  # Force string cellphone number
+def force_phone(message,lower,upper):
+    # this is to check the phone number is the right length and is a number
     while True:
-        cell = input(message).strip()
-        if lower <= len(cell) <= upper and cell.isnumeric():
-            return cell
+        num=input(message)
+        if len(num) >= lower and len(num) <= upper and num.isnumeric():
+            break
         else:
-            print(f"ERROR! Please enter a number between {lower} - {upper} characters (digits only)")
-
-def force_name(message, lower=2, upper=20):  # Force name for inputs
-    while True:
-        name = str(input(message)).title().strip()
-        if lower <= len(name) <= upper and name.isalpha():
-            return name
-        else:
-            print(f"Try a name between {lower}-{upper} characters (letters only)")
-
-def bread_selection(): # Selects the bread
-    bread_list = ["White", "Brown", "Italian", "Granary"]
-    print_list(bread_list, "breads")
-    bread_selected = force_number(("Which bread do you want? Enter a number: "), 1, len(bread_list))
-    return bread_list[bread_selected-1] #Returns back a string
+            print(f"Error! Please enter a phone number in length between {lower} and {upper}.")
+    return num
 
 def print_list(list, item):
-    count = 0 # Print function to print out ingredient options
+    # this code prints all of the options stored in each categories list 
+    count = 0
     print(f"We have the following {item}: ")
-    while count < len(list): #prints out each item on the list
-        print(count+1, " ",list[count])
-        count +=1
-    return
+    while count < len(list):
+        print(count+1," - ",list[count])
+        count += 1
+
+# the following have the variables, print the list of options available using seperate function then it returns it to main program 
+def bread_selection():
+    bread_list = ["White", "Brown", "Italian", "Granary"]
+    print_list(bread_list,"breads")
+    bread_selected = force_number("Which bread did you want? Enter a number: ",1,len(bread_list))
+    return bread_list[bread_selected-1]
 
 def meat_selection():
-    meat_list = ["Salami", "Chicken Strips","Bacon", "Pork Ribs", "Ham", "Tofu"]
-    print_list(meat_list, "meats")
-    meat_selected = force_number(("Which meat do you want? Enter a number: "), 1, len(meat_list))
-    return meat_list[meat_selected-1] #Returns back a string
+    meat_list = ["Chicken Strips", "Chicken Patty", "Steak", "Meatballs", "Teriyaki Chicken", "Vegetable Patty", "Bacon", "Salami", "Ham", "Falafal", "Pork Riblet", "Tuna", "Popcorn Chicken", "Roast Beef", "Corned beef", "No meat"]
+    print_list(meat_list,"meats")
+    meat_selected = force_number("What meat did you want? Enter a number: ",1,len(meat_list))
+    return meat_list[meat_selected-1]
 
 def cheese_selection():
-    cheese_list = ["Swiss", "Cheddar","Edam", "Blue Cheese", "Brie", "Feta"]
-    print_list(cheese_list, "cheeses")
-    cheese_selected = force_number(("Which cheese do you want? Enter a number: "), 1, len(cheese_list))
-    return cheese_list[cheese_selected-1] #Returns back a string
+    cheese_list = ["Cheddar", "Smoked", "Mozzarella", "Swiss", "Feta", "Vegan Cheese", "No Cheese"]
+    print_list(cheese_list,"cheeses")
+    cheese_selected = force_number("What cheese did you want? Enter a number: ",1,len(cheese_list))
+    return cheese_list[cheese_selected-1]
 
-def salad_selection():
-    salad_list = ["Lettuce", "Corn","Tomato", "Spinach", "Peppers", "Jalapeños"]
-    print_list(salad_list, "salads")
+# this is slightly different as it allows you to choose as many as you want and push enter when you are done 
+def salad_selection(): 
+    salad_list = ["Lettuce", "Spinach", "Tomato", "Cucumber", "Pickles", "Capsicum", "Olives", "Red Onion", "Jalapeños", "Carrot", "Potato", "NO SALAD"]
+    print_list(salad_list,"salads")
     print("Press ENTER when you have finished choosing your salads")
-    salads_added = "" # Will hold a string of more than one item
-    selected_salad= " " # Promps the user to enter a number in to select a salad
+    
+    salad_choice = []
+    while True: #infinite loop
+        salad_option=force_number(f"What number salad do you want?\nYou have selected {', '.join(salad_choice)} so far\nEnter number: ",1,len(salad_list),allow_enter=True)
+        if salad_option == "":
+            break
+        else:
+            salad_choice.append(salad_list[salad_option-1])
+    return ", ".join(salad_choice)
 
-    while selected_salad != "": # If enter is not pressed it will keep prompting you to select a salad
-        selected_salad =  force_number((f"What number salad do you want? Enter a number: "), 1, len(salad_list), allow_enter=True)
-        if selected_salad != "" :# If you press enter this if statement wont run
-            selected_salad= int(selected_salad)
-            salads_added = salads_added + " " + salad_list[selected_salad-1]
-    return salads_added.strip() # Removes empty space at the start of the string
-
-def sauce_selection():
-    sauce_list = [" Regular Mayonnaise", " Oil"," Red Wine Vinegar", " Yellow Mustard", " Honey Mustard", " Cheddar sauce", " BBQ", " Siracha", " Mariana Sauce", "Sweet Onion Teriyaki", "Peppercorn Ranch"]
+def dressing_selection():
+    dressing_list = ["Tomato Sauce", "Mustard", "Mexican Salsa", "Smoky BBQ Sauce", "Caesar Dressing", "Chipotle Sauce", "Spicy Mayonnaise", "Habanero Hot Sauce", "Honey Mustard Sauce", "Marinara Sauce", "Mayonnaise", "Ranch Dressing", "Sweet Onion Sauce", "Garlic Aioli Sauce", "Sweet Chilli Sauce"]
     count = 0
-    print("We have the following sauce: ")
-    while count < len(sauce_list): #prints out each item on the list
-        print(count+1, "", sauce_list[count])
-        count +=1
-    sauce_selected = force_number(("Which sauce do you want? Enter a number: "), 1, len(sauce_list))
-    return sauce_list[sauce_selected-1].strip() #Returns back a string
+    print_list(dressing_list,"dressings")
+    dressing_selected = force_number("What dressing did you want? Enter a number: ",1,len(dressing_list))
+    return dressing_list[dressing_selected-1]
 
-def output_textfile(sandwich_order):
-    date_time = datetime.datetime.now() # Setting date and time
-    outF=open("Sam's_sandwiches.txt", "a") # Opening txt file
-    print(" \n***The quote for the sandwich***") 
-    outF.write(f"\n ************NEW ORDER RECIEVED************") # Writing order in txt file
-    outF.write(f"\nDate of booking: {date_time}")
-    for booking in sandwich_order: # Loop to print out sandwich choices
-        print (booking)
-        outF.write(f"\n {booking}") #outputs each item to the text file
-    outF.write(f" \n************END OF ORDER************ \n")
-    outF.close()
+# outputs to textfile which could be sent to a reciept printer etc if needed 
+def output_text_file(sandwich_order):
+    outF = open("orders.txt", "a") #Opens the bookings text file
+    outF.write(f"\n\n*****NEW ORDER RECIEVED**********\n") #Opening statement in text file
+    outF.write(f"\nDate created:{date_time}")
+    for order_piece in sandwich_order: #For every ticket order
+        outF.write(f"\n{order_piece}") #Prints out the students on a new line
+        print(order_piece)
+    outF.write("\n*************ORDER ENDS**************\n\n")
+    outF.close() #Closes the bookings text file
+    print("Booking sent to store - pickup in 15 minutes") #test print statement
 
-#Main program
-phone_number = force_cellphone_number('Please enter in your phone number without country code in NZ format: ', 8,12)
-first_name = force_name("Please enter in your first name: ")
+#main program
+# this gets all of the information
 print("Welcome to Sam's Sandwich Shop")
-bread_choice=bread_selection() # Creating a variable that calls up the bread function and  returns their choice
-print(f"Your selected bread: {bread_choice}")
-meat_choice=meat_selection() # Creating a variable that calls up the meat function and  returns their choice
-print(f"Your selected meat: {meat_choice}")
-cheese_choice=cheese_selection() # Creating a variable that calls up the cheese function and  returns their choice
-print(f"Your selected cheese: {cheese_choice}")
-salad_choice=salad_selection() # Creating a variable that calls up the salad function and  returns their choice
-print(f"Your selected salads: {salad_choice}")
-sauce_choice=sauce_selection() # Creating a variable that calls up the sauce function and  returns their choice
-print(f"Your selected sauce: {sauce_choice}")
-sandwich_order=[] # Creating an empty list for ingredient choices
-sandwich_order.append(f"Bread: {bread_choice}") #Appending choices to list to be printed out
-sandwich_order.append(f"Meat: {meat_choice}") 
-sandwich_order.append(f"Cheese: {cheese_choice}") 
-sandwich_order.append(f"Salad: {salad_choice}") 
-sandwich_order.append(f"Sauce: {sauce_choice}")
-output_textfile(sandwich_order)
+categories = [("name", force_name("What is your name: ",2,15)), ("phone number", force_phone("What is your phone number in NZ Format: ",9,12)), ("selected bread", bread_selection()), ("selected meat", meat_selection()), ("selected cheese", cheese_selection()), ("selected salads", salad_selection()), ("selected dressing", dressing_selection())]
+count = 0
+sandwich_order = []
+date_time = datetime.datetime.now()
+sandwich_order.append(date_time)
+for category, func in categories:
+    choice = func
+    sandwich_order.append(f"Your {category}: {choice}\n")
+
+output_text_file(sandwich_order)

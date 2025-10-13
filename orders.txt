@@ -1,0 +1,22 @@
+
+
+*****NEW ORDER RECIEVED**********
+
+Date created:2025-10-13 13:07:26.746921
+2025-10-13 13:07:26.746921
+Your name: Josh
+
+Your phone number: 02256238024
+
+Your selected bread: White
+
+Your selected meat: Steak
+
+Your selected cheese: No Cheese
+
+Your selected salads: Tomato, Spinach
+
+Your selected dressing: Smoky BBQ Sauce
+
+*************ORDER ENDS**************
+
